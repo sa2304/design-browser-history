@@ -5,25 +5,38 @@
 using namespace std;
 
 class BrowserHistory {
+  vector<string> history;
+  int current = 0;
  public:
   BrowserHistory(string homepage) {
-    //FIXME
+    history.push_back(homepage);
   }
 
   void visit(string url) {
-    //FIXME
+    history.resize(current + 1);
+    history.push_back(url);
+    ++current;
   }
 
   string back(int steps) {
-    //FIXME
-    return {};
+    while (0 < steps && 0 < current) {
+      --current;
+      --steps;
+    }
+
+    return history[current];
   }
 
   string forward(int steps) {
-    //FIXME
-    return {};
+    while (0 < steps && current < history.size() - 1) {
+      --steps;
+      ++current;
+    }
+
+    return history[current];
   }
 };
+
 
 void Test1() {
   BrowserHistory history{"leetcode.com"s};
